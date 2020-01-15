@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-configmap-pod
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh']
+    args: ['-c', 'echo Hello ${MY_VAR} && echo `cat /etc/config/myKey` && sleep 600']
+    env:
+    - name: MY_VAR
+      valueFrom:
+        configMapKeyRef:
+          name: my-config-map
+          key: foo
+    volumeMounts:
+    - name: cmv
+      mountPath: /etc/config
+  volumes:
+  - name: cmv
+    configMap:
+      name: my-config-map
+
+

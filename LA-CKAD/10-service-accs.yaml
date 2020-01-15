@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svcaccpod
+spec:
+  serviceAccountName: mysvcacc
+  containers:
+  - name: foo
+    image: busybox
+    command: ['sh', '-c', 'echo Hello svc acc && sleep 3600']
+
